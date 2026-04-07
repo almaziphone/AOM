@@ -23,6 +23,16 @@ import { initiatives } from '@/data/siteContent'
           <p class="mt-4 text-base leading-relaxed text-slate-600">
             {{ item.text }}
           </p>
+          <p v-if="item.link" class="mt-4">
+            <a
+              :href="item.link"
+              class="font-medium text-navy-800 underline decoration-navy-300 underline-offset-4 transition hover:text-navy-950 hover:decoration-navy-600"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {{ item.linkLabel ?? 'Источник' }}
+            </a>
+          </p>
         </article>
       </div>
     </div>
