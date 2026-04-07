@@ -1,6 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
+import {
+  DEPUTY_CONTACT_SECTION_ID,
+  setupDeputyContactHashFocus,
+} from '@/utils/deputyContactNav'
 
 const FORM_ENDPOINT = 'https://formspree.io/f/xdapbbgo'
 
@@ -41,10 +45,20 @@ async function handleSubmit() {
     submitting.value = false
   }
 }
+
+let cleanupHashFocus: (() => void) | undefined
+
+onMounted(() => {
+  cleanupHashFocus = setupDeputyContactHashFocus()
+})
+
+onUnmounted(() => {
+  cleanupHashFocus?.()
+})
 </script>
 
 <template>
-  <section id="deputy-contact" class="section-y bg-slate-50">
+  <section :id="DEPUTY_CONTACT_SECTION_ID" class="section-y bg-slate-50">
     <div class="container-page">
       <SectionHeading title="Обратиться к депутату" subtitle="Обращение" />
 

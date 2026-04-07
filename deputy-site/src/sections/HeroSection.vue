@@ -33,7 +33,7 @@ import { hero } from '@/data/siteContent'
           </p>
           <div class="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
             <a href="#stats" class="btn-primary text-center"> Отчёт о работе </a>
-            <a href="#contacts" class="btn-secondary text-center"> Обратиться к депутату </a>
+            <a href="#deputy-contact" class="btn-secondary text-center"> Обратиться к депутату </a>
           </div>
         </div>
 

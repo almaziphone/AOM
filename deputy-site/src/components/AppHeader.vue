@@ -30,7 +30,7 @@ const links = [
           {{ l.label }}
         </a>
       </nav>
-      <a href="#contacts" class="btn-primary shrink-0 px-4 py-2 text-xs"> Связаться </a>
+      <a href="#deputy-contact" class="btn-primary shrink-0 px-4 py-2 text-xs"> Связаться </a>
     </div>
   </header>
 </template>
