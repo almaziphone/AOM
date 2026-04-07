@@ -2,6 +2,7 @@
 import AppHeader from '@/components/AppHeader.vue'
 import AboutSection from '@/sections/AboutSection.vue'
 import CharitySection from '@/sections/CharitySection.vue'
+import ContactSection from '@/sections/ContactSection.vue'
 import ContactsSection from '@/sections/ContactsSection.vue'
 import DirectionsSection from '@/sections/DirectionsSection.vue'
 import FooterSection from '@/sections/FooterSection.vue'
@@ -25,6 +26,7 @@ import StatsSection from '@/sections/StatsSection.vue'
     <RequestsSection />
     <CharitySection />
     <MediaSection />
+    <ContactSection />
     <ContactsSection />
   </main>
   <FooterSection />
