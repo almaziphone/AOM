@@ -43,23 +43,38 @@ const maxChannel = Math.max(...requests.channels.map((c) => c.value), 1)
           </ul>
         </div>
 
-        <div class="card-elevated rounded-2xl p-8">
-          <h3 class="mb-4 text-sm font-bold uppercase tracking-wide text-navy-800">
-            География
-          </h3>
-          <ul class="space-y-3">
-            <li
-              v-for="(g, i) in requests.geography"
-              :key="i"
-              class="flex items-center justify-between border-b border-slate-100 py-2 last:border-0"
-            >
-              <span class="text-slate-700">{{ g.place }}</span>
-              <span class="font-semibold tabular-nums text-navy-900">{{ g.count }}</span>
-            </li>
-          </ul>
-          <p class="mt-4 text-sm leading-relaxed text-slate-500">
-            {{ requests.geographyExtra }}
-          </p>
+        <div
+          class="card-elevated relative overflow-hidden rounded-2xl p-8"
+        >
+          <!-- Карта: img надёжнее arbitrary bg-url; градиент только слегка осветляет для читаемости текста -->
+          <img
+            src="/photo/maps_hmao.png"
+            alt=""
+            class="pointer-events-none absolute inset-0 h-full w-full object-cover object-[center_42%] opacity-[0.42]"
+            aria-hidden="true"
+          />
+          <div
+            class="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/72 via-white/48 to-navy-100/55"
+            aria-hidden="true"
+          />
+          <div class="relative z-[1]">
+            <h3 class="mb-4 text-sm font-bold uppercase tracking-wide text-navy-800">
+              География
+            </h3>
+            <ul class="space-y-3">
+              <li
+                v-for="(g, i) in requests.geography"
+                :key="i"
+                class="flex items-center justify-between border-b border-slate-200/80 py-2 last:border-0"
+              >
+                <span class="text-slate-700">{{ g.place }}</span>
+                <span class="font-semibold tabular-nums text-navy-900">{{ g.count }}</span>
+              </li>
+            </ul>
+            <p class="mt-4 text-sm leading-relaxed text-slate-500">
+              {{ requests.geographyExtra }}
+            </p>
+          </div>
         </div>
       </div>
 
