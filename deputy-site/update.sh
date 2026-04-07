@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 # Обновление: git pull, зависимости, сборка, выкладка.
 # Использование: ./update.sh
-# Переменные: DEPLOY_PATH, CHOWN_USER, SKIP_GIT=1 чтобы не делать git pull
+# Переменные: SITE_HOST (по умолчанию oam.ugrapark.ru), DEPLOY_PATH, CHOWN_USER, SKIP_GIT=1 чтобы не делать git pull
 
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT"
 
-DEPLOY_PATH="${DEPLOY_PATH:-/var/www/deputy-site}"
+SITE_HOST="${SITE_HOST:-oam.ugrapark.ru}"
+DEPLOY_PATH="${DEPLOY_PATH:-/var/www/${SITE_HOST}}"
 
 node -v >/dev/null 2>&1 || {
   echo "Node.js не найден. Установите Node 20+ и повторите." >&2
@@ -45,7 +46,13 @@ else
   RSYNC=(sudo rsync -a --delete)
 fi
 
-echo "==> выкладка в ${DEPLOY_PATH}"
+if [ "$EUID" -eq 0 ]; then
+  mkdir -p "$DEPLOY_PATH"
+else
+  sudo mkdir -p "$DEPLOY_PATH"
+fi
+
+echo "==> выкладка в ${DEPLOY_PATH} (сайт ${SITE_HOST})"
 "${RSYNC[@]}" dist/ "${DEPLOY_PATH}/"
 
 if [ -n "${CHOWN_USER:-}" ]; then
@@ -57,4 +64,5 @@ if [ -n "${CHOWN_USER:-}" ]; then
   echo "==> владелец: ${CHOWN_USER}"
 fi
 
-echo "Готово. При необходимости: sudo systemctl reload caddy"
+echo "Готово: https://${SITE_HOST}"
+echo "При необходимости: sudo systemctl reload caddy"

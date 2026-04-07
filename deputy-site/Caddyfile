@@ -1,0 +1,8 @@
+# Скопируйте в /etc/caddy/Caddyfile или подключите через import.
+# Путь root должен совпадать с DEPLOY_PATH в install.sh / update.sh.
+
+oam.ugrapark.ru {
+	root * /var/www/oam.ugrapark.ru
+	file_server
+	encode gzip zstd
+}

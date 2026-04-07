@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 # Первичная установка: зависимости, сборка, выкладка в каталог для Caddy.
 # Использование: ./install.sh
-# Переменные: DEPLOY_PATH (по умолчанию /var/www/deputy-site), CHOWN_USER (например caddy)
+# Переменные: SITE_HOST (по умолчанию oam.ugrapark.ru), DEPLOY_PATH (по умолчанию /var/www/$SITE_HOST), CHOWN_USER (например caddy)
 
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT"
 
-DEPLOY_PATH="${DEPLOY_PATH:-/var/www/deputy-site}"
+SITE_HOST="${SITE_HOST:-oam.ugrapark.ru}"
+DEPLOY_PATH="${DEPLOY_PATH:-/var/www/${SITE_HOST}}"
 
 node -v >/dev/null 2>&1 || {
   echo "Node.js не найден. Установите Node 20+ и повторите." >&2
@@ -38,7 +39,13 @@ else
   RSYNC=(sudo rsync -a --delete)
 fi
 
-echo "==> выкладка в ${DEPLOY_PATH}"
+if [ "$EUID" -eq 0 ]; then
+  mkdir -p "$DEPLOY_PATH"
+else
+  sudo mkdir -p "$DEPLOY_PATH"
+fi
+
+echo "==> выкладка в ${DEPLOY_PATH} (сайт ${SITE_HOST})"
 "${RSYNC[@]}" dist/ "${DEPLOY_PATH}/"
 
 if [ -n "${CHOWN_USER:-}" ]; then
@@ -50,4 +57,5 @@ if [ -n "${CHOWN_USER:-}" ]; then
   echo "==> владелец: ${CHOWN_USER}"
 fi
 
-echo "Готово. При необходимости: sudo systemctl reload caddy"
+echo "Готово: https://${SITE_HOST}"
+echo "Caddy: см. Caddyfile в этом каталоге; при необходимости: sudo systemctl reload caddy"
