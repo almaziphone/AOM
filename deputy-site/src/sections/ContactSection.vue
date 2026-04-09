@@ -6,10 +6,12 @@ import {
   setupDeputyContactHashFocus,
 } from '@/utils/deputyContactNav'
 
+// const FORM_ENDPOINT = 'https://formspree.io/f/xdapbbgo' almaziphone@gmail.com
 const FORM_ENDPOINT = 'https://formspree.io/f/xdapbbgo'
 
 const fio = ref('')
 const phone = ref('')
+const comment = ref('')
 const consent = ref(false)
 const submitting = ref(false)
 const submitted = ref(false)
@@ -24,6 +26,7 @@ async function handleSubmit() {
     body.append('_subject', 'Новое обращение с сайта депутата')
     body.append('fio', fio.value.trim())
     body.append('phone', phone.value.trim())
+    body.append('comment', comment.value.trim())
     body.append('consent', 'yes')
 
     const response = await fetch(FORM_ENDPOINT, {
@@ -64,7 +67,7 @@ onUnmounted(() => {
 
       <div class="card-elevated mx-auto max-w-xl p-8 md:p-10">
         <p class="mb-8 text-base leading-relaxed text-slate-600">
-          Оставьте контактные данные для обратной связи.
+          Оставьте контактные данные и кратко изложите тему обращения.
         </p>
 
         <div
@@ -109,6 +112,22 @@ onUnmounted(() => {
               maxlength="50"
               class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-base text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-navy-500 focus:ring-2 focus:ring-navy-500/20"
               placeholder="+7 (___) ___-__-__"
+            />
+          </div>
+
+          <div>
+            <label for="contact-comment" class="mb-2 block text-sm font-semibold text-navy-900">
+              Тема обращения
+            </label>
+            <textarea
+              id="contact-comment"
+              v-model="comment"
+              name="comment"
+              required
+              rows="5"
+              maxlength="4000"
+              class="min-h-[8rem] w-full resize-y rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-base text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-navy-500 focus:ring-2 focus:ring-navy-500/20"
+              placeholder="Кратко изложите суть обращения"
             />
           </div>
 
