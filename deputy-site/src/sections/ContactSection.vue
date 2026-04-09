@@ -6,8 +6,7 @@ import {
   setupDeputyContactHashFocus,
 } from '@/utils/deputyContactNav'
 
-// const FORM_ENDPOINT = 'https://formspree.io/f/xdapbbgo' almaziphone@gmail.com
-const FORM_ENDPOINT = 'https://formspree.io/f/mzdkqglk' //osadchuk_duma@mail.ru
+const FORM_ENDPOINT = 'https://formspree.io/f/mzdkqglk'
 
 const fio = ref('')
 const phone = ref('')
