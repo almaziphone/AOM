@@ -7,7 +7,7 @@ import {
 } from '@/utils/deputyContactNav'
 
 // const FORM_ENDPOINT = 'https://formspree.io/f/xdapbbgo' almaziphone@gmail.com
-const FORM_ENDPOINT = 'https://formspree.io/f/xdapbbgo'
+const FORM_ENDPOINT = 'https://formspree.io/f/mzdkqglk' //osadchuk_duma@mail.ru
 
 const fio = ref('')
 const phone = ref('')
